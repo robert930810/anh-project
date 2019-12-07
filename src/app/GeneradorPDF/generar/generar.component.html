@@ -1,0 +1,26 @@
+<!--<div>
+  <angular-editor
+    [placeholder]="'Enter text here...'"
+    [(ngModel)]="plantilla.contenido"
+    [config]="editorConfig"
+    name="contenido"
+  ></angular-editor>
+</div>-->
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input
+      matInput
+      placeholder="Número de identificación"
+      #keyBox
+      (blur)="findObject(keyBox.value)"
+    />
+  </mat-form-field>
+</form>
+
+<div class="">
+  <div id="content" style="width: 100%" #content>
+    <div [innerHTML]="contenido"></div>
+  </div>
+</div>
+
+<button (click)="generatePdf()">Open PDF</button>

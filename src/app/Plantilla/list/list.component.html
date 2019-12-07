@@ -1,0 +1,44 @@
+<div class="container mt-0 margin-top-25 margin-bottom-25">
+  <div
+    fxLayout="column"
+    fxLayoutGap="20px"
+    fxLayout.gt-md="row"
+    fxLayoutAlign="space-around center"
+    class="content text-center"
+  >
+    <div class="blocks">
+      <button mat-raised-button color="primary" (click)="Nuevo()">
+        <mat-icon>add</mat-icon> Agregar plantilla
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-8 user-container row m-auto">
+  <h2 style="margin: auto">Lista de Plantillas</h2>
+  <table class="table table-striped text-center">
+    <thead>
+      <tr>
+        <th class="hidden">Id</th>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plantilla of plantillas">
+        <td class="hidden">{{ plantilla.id }}</td>
+        <td>{{ plantilla.nombre }}</td>
+        <td>{{ plantilla.descripcion }}</td>
+        <td>
+          <a type="button" (click)="Edit(plantilla)">
+            <mat-icon class="icon">edit</mat-icon>
+          </a>
+          <a type="button" (click)="Delete(plantilla)">
+            <mat-icon class="icon">delete</mat-icon>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
