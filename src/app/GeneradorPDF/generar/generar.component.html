@@ -6,21 +6,48 @@
     name="contenido"
   ></angular-editor>
 </div>-->
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input
-      matInput
-      placeholder="Número de identificación"
-      #keyBox
-      (blur)="findObject(keyBox.value)"
-    />
-  </mat-form-field>
-</form>
+<div class="container col-md-8 m-auto ">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input
+        matInput
+        placeholder="Número de identificación"
+        #keyBox
+        (blur)="findObject(keyBox.value)"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Seleccione plantilla</mat-label>
+      <mat-select
+        [(ngModel)]="selectedOption"
+        (ngModelChange)="getPlantilla(selectedOption)"
+        name="plantilla"
+      >
+        <mat-option *ngFor="let plantilla of plantillas" [value]="plantilla.id">
+          {{ plantilla.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
 
-<div class="">
-  <div id="content" style="width: 100%" #content>
-    <div [innerHTML]="contenido"></div>
+  <div class="border border-dark content-plantilla" [hidden]="!submitted">
+    <div id="content" style="width: 100%" #content>
+      <div [innerHTML]="contenido"></div>
+    </div>
   </div>
-</div>
+  <div [hidden]="!submittedError">
+    <h4>No existe la persona</h4>
+  </div>
+  <br />
+  <div>
+    <iframe
+      src="file:///C:/Users/LENOVO/Downloads/test%20(8).pdf"
+      frameborder="0"
+    ></iframe>
+  </div>
 
-<button (click)="generatePdf()">Open PDF</button>
+  <button (click)="generatePdf()" mat-raised-button color="primary">
+    Generar PDF
+  </button>
+  <!--<button (click)="generatePdf()">Open PDF</button>-->
+</div>

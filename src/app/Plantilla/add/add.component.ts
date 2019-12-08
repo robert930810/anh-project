@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Plantilla } from "src/app/Models/plantilla.model";
+import { TipoPlantilla } from "src/app/Models/tipo-plantilla.model";
 import { Router } from "@angular/router";
 import { ServiceService } from "src/app/Service/service.service";
 import { AngularEditorConfig } from "@kolkov/angular-editor";
@@ -10,6 +11,7 @@ import { AngularEditorConfig } from "@kolkov/angular-editor";
   styleUrls: ["./add.component.css"]
 })
 export class AddComponent implements OnInit {
+  tiposPlantilla: TipoPlantilla[];
   plantilla: Plantilla = new Plantilla();
   submitted = false;
   editorConfig: AngularEditorConfig = {
@@ -56,7 +58,22 @@ export class AddComponent implements OnInit {
 
   constructor(private router: Router, private service: ServiceService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.tiposPlantilla = [
+      {
+        id: 1,
+        nombre: "Tipo 1"
+      },
+      {
+        id: 2,
+        nombre: "Tipo 2"
+      },
+      {
+        id: 3,
+        nombre: "Tipo 3"
+      }
+    ];
+  }
 
   save() {
     this.service.createPlantilla(this.plantilla).subscribe(

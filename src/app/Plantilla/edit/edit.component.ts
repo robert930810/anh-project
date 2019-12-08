@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Plantilla } from "src/app/Models/plantilla.model";
+import { TipoPlantilla } from "src/app/Models/tipo-plantilla.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ServiceService } from "src/app/Service/service.service";
 import { AngularEditorConfig } from "@kolkov/angular-editor";
@@ -10,6 +11,7 @@ import { AngularEditorConfig } from "@kolkov/angular-editor";
   styleUrls: ["./edit.component.css"]
 })
 export class EditComponent implements OnInit {
+  tiposPlantilla: TipoPlantilla[];
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -63,6 +65,20 @@ export class EditComponent implements OnInit {
   submitted: boolean = false;
 
   ngOnInit() {
+    this.tiposPlantilla = [
+      {
+        id: 1,
+        nombre: "Tipo 1"
+      },
+      {
+        id: 2,
+        nombre: "Tipo 2"
+      },
+      {
+        id: 3,
+        nombre: "Tipo 3"
+      }
+    ];
     this.plantilla = new Plantilla();
     this.id = localStorage.getItem("id");
     this.service.getPlantillaId(this.id).subscribe(

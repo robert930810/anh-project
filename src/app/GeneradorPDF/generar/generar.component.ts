@@ -11,6 +11,7 @@ import { Contratista } from "../../Models/contratista.model";
 import { Plantilla } from "../../Models/plantilla.model";
 import { ServiceService } from "../../Service/service.service";
 import { FormControl } from "@angular/forms";
+import { AngularFireStorage } from "@angular/fire/storage";
 
 import { AngularEditorConfig } from "@kolkov/angular-editor";
 import pdfMake from "pdfmake/build/pdfmake";
@@ -25,6 +26,10 @@ import * as jsPDF from "jspdf";
   styleUrls: ["./generar.component.css"]
 })
 export class GenerarComponent implements OnInit {
+  submitted = false;
+  submittedError = false;
+  selectedOption: Number;
+  panelOpenState = false;
   @ViewChild("content", { static: false }) content: ElementRef;
   contentAux: any;
   plantillas: Plantilla[];
@@ -80,7 +85,8 @@ export class GenerarComponent implements OnInit {
   constructor(
     private router: Router,
     private service: ServiceService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private storage: AngularFireStorage
   ) {}
 
   ngOnInit() {
@@ -135,17 +141,29 @@ export class GenerarComponent implements OnInit {
       this.plantillas = data;
       console.log(this.plantillas);
     });
+  }
 
-    this.service.getPlantillaId(13).subscribe(data => {
+  public referenciaCloudStorage(nombreArchivo: string) {
+    return this.storage.ref(nombreArchivo);
+  }
+
+  getPlantilla() {
+    this.service.getPlantillaId(this.selectedOption).subscribe(data => {
       this.plantilla = data;
-
-      let contratistaTest = this.contratistas[0];
+      this.contenido = data.contenido;
+      let contratistaTest = this.contratista;
 
       let listaComodines = [
         "[identificacion]",
         "[nombre]",
         "[contrato]",
-        "[inicioContrato]"
+        "[inicioContrato]",
+        "[finContrato]",
+        "[telefono]",
+        "[cdp]",
+        "[objeto]",
+        "[supervidor]",
+        "[abogado]"
       ];
 
       let tmpContenido: string = "";
@@ -160,22 +178,35 @@ export class GenerarComponent implements OnInit {
         if (tmpContenido !== dataContenido) {
           this.contenido = tmpContenido;
           dataContenido = this.contenido.toString();
+          this.submitted = true;
         }
       });
-
-      debugger;
-
+      console.log(this.contenido);
       console.log(this.plantilla);
       this.nombre = this.plantilla.nombre;
     });
   }
 
+  contratista: Contratista;
   findObject(id: Number) {
     const contratista = this.contratistas.find(
       element => element.identificacion == id
     );
-    console.log(contratista);
-    return contratista;
+
+    if (contratista == undefined) {
+      console.log("error");
+      this.submitted = false;
+      this.submittedError = true;
+      return 0;
+    } else {
+      this.submittedError = false;
+      this.contratista = contratista;
+      this.panelOpenState = true;
+      if (this.contenido != undefined) {
+        this.getPlantilla();
+      }
+      return contratista;
+    }
   }
 
   ngAfterViewInit() {

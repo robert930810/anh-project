@@ -7,3 +7,7 @@
 .example-full-width {
   width: 100%;
 }
+
+.content-plantilla {
+  min-height: 50px !important;
+}

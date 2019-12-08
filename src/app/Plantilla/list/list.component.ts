@@ -2,6 +2,13 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { Plantilla } from "../../Models/plantilla.model";
 import { ServiceService } from "../../Service/service.service";
+import { Observable, Subject } from "rxjs";
+import {
+  tap,
+  switchMap,
+  debounceTime,
+  distinctUntilChanged
+} from "rxjs/operators";
 
 @Component({
   selector: "app-list",
