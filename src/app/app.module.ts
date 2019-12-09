@@ -12,9 +12,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { GenerarComponent } from "./GeneradorPDF/generar/generar.component";
-import { AngularFireModule } from "angularfire2";
-import { AngularFireStorageModule } from "angularfire2/storage";
 import {
+  MatCardModule,
   MatToolbarModule,
   MatIconModule,
   MatSidenavModule,
@@ -23,9 +22,9 @@ import {
   MatButtonModule,
   MatFormFieldModule,
   MatExpansionModule,
-  MatSelectModule
+  MatSelectModule,
+  MatChipsModule
 } from "@angular/material";
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +41,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     AngularEditorModule,
+    MatCardModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
@@ -51,16 +51,7 @@ import {
     MatFormFieldModule,
     MatExpansionModule,
     MatSelectModule,
-    AngularFireModule.initializeApp({
-      apiKey: "AIzaSyAIW60ddmlmNSk0LlZ5Ish7n-siM500iNw",
-      authDomain: "anh-files.firebaseapp.com",
-      databaseURL: "https://anh-files.firebaseio.com",
-      projectId: "anh-files",
-      storageBucket: "anh-files.appspot.com",
-      messagingSenderId: "681648512129",
-      appId: "1:681648512129:web:130ee51a1ddb6f031cc180"
-    }),
-    AngularFireStorageModule
+    MatChipsModule
   ],
   providers: [ServiceService],
   bootstrap: [AppComponent]
