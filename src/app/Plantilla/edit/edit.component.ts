@@ -65,25 +65,14 @@ export class EditComponent implements OnInit {
   submitted: boolean = false;
 
   ngOnInit() {
-    this.tiposPlantilla = [
-      {
-        id: 1,
-        nombre: "Tipo 1"
-      },
-      {
-        id: 2,
-        nombre: "Tipo 2"
-      },
-      {
-        id: 3,
-        nombre: "Tipo 3"
-      }
-    ];
+    this.service.getTipoPlantillas().subscribe(data => {
+      this.tiposPlantilla = data['data'];
+    });
     this.plantilla = new Plantilla();
     this.id = localStorage.getItem("id");
     this.service.getPlantillaId(this.id).subscribe(
       data => {
-        this.plantilla = data;
+        this.plantilla = data['data'][0];
       },
       error => console.log(error)
     );
@@ -92,11 +81,11 @@ export class EditComponent implements OnInit {
   save() {
     this.service.updatePlantilla(this.plantilla).subscribe(
       data => {
-        this.plantilla = data;
+        this.plantilla = data['data'];
         this.router.navigate(["listar-plantillas"]);
       },
       error => {
-        console.log("error to create");
+        console.log("error to create " + error);
       }
     );
   }

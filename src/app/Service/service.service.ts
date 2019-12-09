@@ -28,18 +28,18 @@ export class ServiceService {
   }
 
   getPlantillaId(id: Number): Observable<Plantilla> {
-    return this.http.get<Plantilla>(this.Url + "/" + id);
+    return this.http.get<Plantilla>(this.Url + "/obtenerporid/" + id);
   }
 
   createPlantilla(plantilla: Plantilla): Observable<Plantilla> {
-    return this.http.post<Plantilla>(this.Url, plantilla);
+    return this.http.post<Plantilla>(this.Url + '/crear', plantilla);
   }
 
   updatePlantilla(plantilla: Plantilla): Observable<Plantilla> {
-    return this.http.put<Plantilla>(this.Url + "/" + plantilla.id, plantilla);
+    return this.http.post<Plantilla>(this.Url + "/editar", plantilla);
   }
 
   deletePlantilla(id: Number): Observable<Plantilla> {
-    return this.http.delete<Plantilla>(this.Url + "/" + id);
+    return this.http.get<Plantilla>(this.Url + "/borrar/" + id);
   }
 }
