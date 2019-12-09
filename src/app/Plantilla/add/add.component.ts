@@ -15,6 +15,7 @@ export class AddComponent implements OnInit {
   tiposPlantilla: TipoPlantilla[];
   plantilla: Plantilla = new Plantilla();
   comodines: Comodin[];
+  ObtenerComodines = false;
   submitted = false;
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -62,15 +63,16 @@ export class AddComponent implements OnInit {
 
   ngOnInit() {
     this.service.getTipoPlantillas().subscribe(data => {
-      this.tiposPlantilla = data['data'];
+      this.tiposPlantilla = data["data"];
     });
   }
 
-  changed(element){
+  changed(element) {
     this.comodines = [];
     this.service.getComodines(element).subscribe(data => {
-      this.comodines = data['data'];
+      this.comodines = data["data"];
     });
+    this.ObtenerComodines = true;
   }
 
   save() {
