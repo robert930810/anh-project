@@ -11,7 +11,6 @@ import { Contratista } from "../../Models/contratista.model";
 import { Plantilla } from "../../Models/plantilla.model";
 import { ServiceService } from "../../Service/service.service";
 import { FormControl } from "@angular/forms";
-import { AngularFireStorage } from "@angular/fire/storage";
 
 import { AngularEditorConfig } from "@kolkov/angular-editor";
 import pdfMake from "pdfmake/build/pdfmake";
@@ -85,8 +84,7 @@ export class GenerarComponent implements OnInit {
   constructor(
     private router: Router,
     private service: ServiceService,
-    private renderer: Renderer2,
-    private storage: AngularFireStorage
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
@@ -138,36 +136,27 @@ export class GenerarComponent implements OnInit {
     ];
 
     this.service.getPlantillas().subscribe(data => {
-      this.plantillas = data;
+      this.plantillas = data['data'];
       console.log(this.plantillas);
     });
   }
 
-  public referenciaCloudStorage(nombreArchivo: string) {
-    return this.storage.ref(nombreArchivo);
-  }
 
   getPlantilla() {
     this.service.getPlantillaId(this.selectedOption).subscribe(data => {
-      this.plantilla = data;
-      this.contenido = data.contenido;
+      debugger;
+      this.plantilla = data['data'][0];
+      this.contenido = this.plantilla.contenido;
       let contratistaTest = this.contratista;
 
       let listaComodines = [
         "[identificacion]",
         "[nombre]",
-        "[contrato]",
-        "[inicioContrato]",
-        "[finContrato]",
-        "[telefono]",
-        "[cdp]",
-        "[objeto]",
-        "[supervidor]",
-        "[abogado]"
+        "[correo]"
       ];
 
       let tmpContenido: string = "";
-      let dataContenido = data.contenido;
+      let dataContenido = this.contenido;
       listaComodines.forEach(element => {
         let tmpContratista = element.replace("[", "").replace("]", "");
 

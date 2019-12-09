@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Plantilla } from "src/app/Models/plantilla.model";
+import { Comodin } from "../../Models/comodin.model";
 import { TipoPlantilla } from "src/app/Models/tipo-plantilla.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ServiceService } from "src/app/Service/service.service";
@@ -12,6 +13,8 @@ import { AngularEditorConfig } from "@kolkov/angular-editor";
 })
 export class EditComponent implements OnInit {
   tiposPlantilla: TipoPlantilla[];
+  comodines: Comodin[];
+  ObtenerComodines = false;
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -89,6 +92,15 @@ export class EditComponent implements OnInit {
       }
     );
   }
+
+  changed(element) {
+    this.comodines = [];
+    this.service.getComodines(element).subscribe(data => {
+      this.comodines = data["data"];
+    });
+    this.ObtenerComodines = true;
+  }
+
 
   onSubmit() {
     this.submitted = true;

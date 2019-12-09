@@ -20,7 +20,7 @@
       <mat-label>Seleccione plantilla</mat-label>
       <mat-select
         [(ngModel)]="selectedOption"
-        (ngModelChange)="getPlantilla(selectedOption)"
+        (ngModelChange)="getPlantilla()"
         name="plantilla"
       >
         <mat-option *ngFor="let plantilla of plantillas" [value]="plantilla.id">
