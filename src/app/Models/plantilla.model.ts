@@ -4,4 +4,5 @@ export class Plantilla {
   nombre: string;
   descripcion: string;
   contenido: string;
+  comodin: number;
 }

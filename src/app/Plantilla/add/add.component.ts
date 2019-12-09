@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Plantilla } from "src/app/Models/plantilla.model";
+import { Comodin } from "../../Models/comodin.model";
 import { TipoPlantilla } from "src/app/Models/tipo-plantilla.model";
 import { Router } from "@angular/router";
 import { ServiceService } from "src/app/Service/service.service";
@@ -13,6 +14,7 @@ import { AngularEditorConfig } from "@kolkov/angular-editor";
 export class AddComponent implements OnInit {
   tiposPlantilla: TipoPlantilla[];
   plantilla: Plantilla = new Plantilla();
+  comodines: Comodin[];
   submitted = false;
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -59,20 +61,16 @@ export class AddComponent implements OnInit {
   constructor(private router: Router, private service: ServiceService) {}
 
   ngOnInit() {
-    this.tiposPlantilla = [
-      {
-        id: 1,
-        nombre: "Tipo 1"
-      },
-      {
-        id: 2,
-        nombre: "Tipo 2"
-      },
-      {
-        id: 3,
-        nombre: "Tipo 3"
-      }
-    ];
+    this.service.getTipoPlantillas().subscribe(data => {
+      this.tiposPlantilla = data['data'];
+    });
+  }
+
+  changed(element){
+    this.comodines = [];
+    this.service.getComodines(element).subscribe(data => {
+      this.comodines = data['data'];
+    });
   }
 
   save() {

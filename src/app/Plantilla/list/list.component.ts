@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.service.getPlantillas().subscribe(data => {
-      this.plantillas = data;
+      this.plantillas = data['data'];
     });
   }
 

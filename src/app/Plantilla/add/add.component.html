@@ -43,6 +43,25 @@
           </mat-select>
         </mat-form-field>
         <br />
+        <mat-form-field class="w-50 p-25">
+          <mat-select (selectionChange)="changed($event.value)" placeholder="Fuente de Datos (Ejemplo)">
+            <mat-option value="1">Usuarios</mat-option>
+            <mat-option value="2">Contratistas</mat-option>
+            <mat-option value="3">Tierras</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br />
+        <mat-form-field class="w-50 p-25">
+          <mat-label>Comodines</mat-label>
+          <mat-select [(ngModel)]="plantilla.comodin" name="comodin">
+              <mat-option
+              *ngFor="let comodin of comodines"
+              [value]="comodin.key">
+              {{ comodin.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br />
         <mat-form-field class="example-full-width w-100 p-25">
           <input
             matInput
